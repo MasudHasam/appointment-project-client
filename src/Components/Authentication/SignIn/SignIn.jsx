@@ -1,25 +1,44 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import google from '../../../Assets/Logo/Google.png'
 import github from '../../../Assets/Logo/Github.png'
 import Lottie from 'react-lottie';
 import signinAnimation from '../../../login.json';
+import { AuthContext } from '../../../AuthProvider/Authprovider';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const [loginError, setLoginError] = useState();
+    const { googleLogin, githubLogin, emailSignin } = useContext(AuthContext)
 
-    const handelLogin = (data) => {
-        console.log(data);
+    const emailLogin = (data) => {
+        emailSignin(data.email, data.password)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
 
     const googleSignin = () => {
-        console.log('google');
+        googleLogin()
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
+
     const githubSignin = () => {
-        console.log('github');
+        githubLogin()
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
+
 
     const defaultOptions = {
         loop: true,
@@ -40,7 +59,7 @@ const SignIn = () => {
                         />
                     </div>
                     <div className="card max-w-sm shadow-2xl pb-2">
-                        <form onSubmit={handleSubmit(handelLogin)} className='   px-2 py-2 rounded-md mt-2'>
+                        <form onSubmit={handleSubmit(emailLogin)} className='   px-2 py-2 rounded-md mt-2'>
                             <div className="form-control w-full rounded-md">
                                 <label className="label">
                                     <span className="label-text">Email</span>

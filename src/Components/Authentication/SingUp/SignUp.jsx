@@ -9,18 +9,35 @@ import { AuthContext } from '../../../AuthProvider/Authprovider';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { name } = useContext(AuthContext);
+    const { googleLogin, githubLogin, emailSignup } = useContext(AuthContext);
     const [loginError, setLoginError] = useState();
-    console.log(name);
-    const handelSignup = (data) => {
-        console.log(data);
+
+
+    const signupWithEmail = (data) => {
+        emailSignup(data.email, data.password)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
 
     const googleSignin = () => {
-        console.log('google');
+        googleLogin()
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
+
     const githubSignin = () => {
-        console.log('github');
+        githubLogin()
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
 
     const defaultOptions = {
@@ -42,7 +59,7 @@ const SignIn = () => {
                         />
                     </div>
                     <div className="card max-w-sm shadow-2xl pb-2">
-                        <form onSubmit={handleSubmit(handelSignup)} className='   px-2 py-2 rounded-md mt-2'>
+                        <form onSubmit={handleSubmit(signupWithEmail)} className='   px-2 py-2 rounded-md mt-2'>
                             <div className="form-control w-full rounded-md">
                                 <label className="label">
                                     <span className="label-text">Email</span>

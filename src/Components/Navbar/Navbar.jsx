@@ -1,31 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/Authprovider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+
+    const signOut = () => {
+        logOut()
+            .then()
+            .catch(err => console.log(err))
+    }
 
     const middleItem = [
         <li key={1}><Link to='/'>Home</Link></li>,
     ]
 
     const navEndItem = [
-        <Link to='/signin' key={1} className="btn btn-xs btn-outline">Sign In</Link>,
-        <div key={2} className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                    <img src="https://placeimg.com/80/80/people" alt='' />
-                </div>
-            </label>
-            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li>
-                    <Link className="justify-between">
-                        Profile
-                        <span className="badge">New</span>
-                    </Link>
-                </li>
-                <li><Link>Settings</Link></li>
-                <li><Link>Logout</Link></li>
-            </ul>
-        </div>
+        user?.displayName || user?.email ?
+            <div key={2} className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                        <img src={user?.photoURL ? user?.photoURL : 'https://placeimg.com/80/80/people'} alt='' />
+                    </div>
+                </label>
+                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                        <Link className="justify-between">
+                            Profile
+                            <span className="badge">New</span>
+                        </Link>
+                    </li>
+                    <li><Link>Settings</Link></li>
+                    <li onClick={signOut}><Link>Logout</Link></li>
+                </ul>
+            </div>
+            :
+            <Link to='/signin' key={1} className="btn btn-xs btn-outline">Sign In</Link>
 
     ]
 
@@ -41,7 +52,7 @@ const Navbar = () => {
                             {middleItem}
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+                    <Link to='/' className=" normal-case text-xl">Appointment</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
