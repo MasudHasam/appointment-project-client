@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import google from '../../../Assets/Logo/Google.png'
 import github from '../../../Assets/Logo/Github.png'
 import Lottie from 'react-lottie';
 import signupAnimation from '../../../signup.json';
+import { AuthContext } from '../../../AuthProvider/Authprovider';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { name } = useContext(AuthContext);
     const [loginError, setLoginError] = useState();
-
+    console.log(name);
     const handelSignup = (data) => {
         console.log(data);
     }
