@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
 import Lottie from 'react-lottie';
 import meetingAnimation from '../../meetingTime.json';
 import TimeSlot from '../TimeSlot/TimeSlot';
+import { AuthContext } from '../../AuthProvider/Authprovider';
 
 const Home = () => {
-    const date = new Date();
-    const [selected, setSelected] = React.useState(date);
+
     const [timeSlot, setTimeSlot] = useState();
+    const { selected, setSelected } = useContext(AuthContext);
 
     const defaultOptions = {
         loop: true,
@@ -20,7 +21,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:5000/timeSlot')
+        fetch('http://localhost:5000/timeSlots')
             .then(res => res.json())
             .then(data => {
                 setTimeSlot(data);

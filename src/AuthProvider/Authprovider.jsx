@@ -9,6 +9,8 @@ const githubProvider = new GithubAuthProvider();
 
 const Authprovider = ({ children }) => {
     const [user, setUser] = useState();
+    const date = new Date();
+    const [selected, setSelected] = React.useState(date);
 
     const googleLogin = () => {
         return signInWithPopup(Auth, googleProvider)
@@ -43,6 +45,7 @@ const Authprovider = ({ children }) => {
         logOut,
         emailSignup,
         emailSignin,
+        selected, setSelected,
         user,
     }
 

@@ -13,7 +13,8 @@ const Navbar = () => {
     }
 
     const middleItem = [
-        <li key={1}><Link to='/'>Home</Link></li>,
+        <li className=' font-semibold' key={1}><Link to='/'>Appointment</Link></li>,
+        <li className=' font-semibold' key={2}><Link to='/dashboard'>Dashboard</Link></li>,
     ]
 
     const navEndItem = [
@@ -26,7 +27,7 @@ const Navbar = () => {
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
-                        <Link className="justify-between">
+                        <Link to='/profile' className="justify-between">
                             Profile
                             <span className="badge">New</span>
                         </Link>
@@ -52,7 +53,7 @@ const Navbar = () => {
                             {middleItem}
                         </ul>
                     </div>
-                    <Link to='/' className=" normal-case text-xl">Appointment</Link>
+                    <Link to='/' className=" normal-case text-xl font-bold text-sky-500">DevSoftBD</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
