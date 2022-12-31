@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData, Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const EditAppointment = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -25,9 +26,9 @@ const EditAppointment = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged === true) {
-                    alert('Update Succfully')
+                    toast.success('Update Succfully')
                 } else {
-                    alert('Update Faild. Please try again')
+                    toast.error('Update Faild. Please try again')
                 }
             })
             .catch(err => console.log(err))
@@ -59,6 +60,7 @@ const EditAppointment = () => {
                             }
                         </select>
                         <input value='Save Changes' type='submit' className='btn btn-outline btn-infos border-orange-300 w-full max-w-xs rounded-md' />
+                        <Toaster />
                     </div>
                 </form>
                 <Link to='/profile' className='btn btn-error rounded-md btn-outline'>Calcel</Link>

@@ -3,6 +3,8 @@ import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/Authprovider';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Booking = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -23,10 +25,10 @@ const Booking = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.acknowledged == false) {
-                    alert('you can only book a single slot in a day')
+                if (data.acknowledged === false) {
+                    toast.error('You can only book a single slot in a day');
                 } else {
-                    alert('booked successfully')
+                    toast.success('Booked successfullly');
                 }
             })
             .catch(err => console.log(err))
@@ -59,6 +61,7 @@ const Booking = () => {
                     <div className='flex flex-col  lg:flex-row gap-4 justify-between mb-3'>
                         <input {...register('timeSlot')} readOnly type="text" placeholder="Time Slot" defaultValue={`${data?.timeSlot} ${data?.meridiem}`} className="input input-bordered rounded-md input-accent w-full max-w-xs" />
                         <input value='Book Now' type='submit' className='btn btn-outline border-orange-300 w-full max-w-xs rounded-md' />
+                        <Toaster />
                     </div>
                 </form>
 

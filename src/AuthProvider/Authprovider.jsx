@@ -11,20 +11,28 @@ const Authprovider = ({ children }) => {
     const [user, setUser] = useState();
     const date = new Date();
     const [selected, setSelected] = React.useState(date);
+    const [loading, setLoading] = useState(true);
+    const [admin, setAdmin] = useState();
+    const [adminLoading, setAdminLoading] = useState(true);
+
 
     const googleLogin = () => {
+        setLoading(true);
         return signInWithPopup(Auth, googleProvider)
     }
 
     const githubLogin = () => {
+        setLoading(true);
         return signInWithPopup(Auth, githubProvider)
     }
 
     const emailSignup = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(Auth, email, password)
     }
 
     const emailSignin = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(Auth, email, password)
     }
 
@@ -34,10 +42,35 @@ const Authprovider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(Auth, currentUser => {
-            setUser(currentUser)
+            setUser(currentUser);
+            setLoading(false);
         })
         return () => unSubscribe();
-    }, [])
+    }, []);
+
+    const saveUser = (user) => {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+    }
+
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:5000/users?email=${user?.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setAdmin(data)
+                    setLoading(false)
+                    setAdminLoading(false)
+                })
+        }
+    }, [user?.email])
+
+
 
     const info = {
         googleLogin,
@@ -47,6 +80,10 @@ const Authprovider = ({ children }) => {
         emailSignin,
         selected, setSelected,
         user,
+        loading,
+        adminLoading, admin,
+        setAdmin, setAdminLoading,
+        saveUser,
     }
 
     return (

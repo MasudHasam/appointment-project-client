@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import AdminRout from '../Components/AdminRout/AdminRout';
 import SignIn from '../Components/Authentication/SignIn/SignIn';
 import SignUp from '../Components/Authentication/SingUp/SignUp';
 import Booking from '../Components/Booking/Booking';
@@ -7,6 +8,7 @@ import Dashboard from '../Components/Dashboard/Dashboard';
 import EditAppointment from '../Components/EditAppointment/EditAppointment';
 import Home from '../Components/Home/Home';
 import Layout from '../Components/Layout/Layout';
+import PrivetRout from '../Components/PrivetRout/PrivetRout';
 import UserProfile from '../Components/UserProfile/UserProfile';
 
 const Router = () => {
@@ -30,12 +32,12 @@ const Router = () => {
                 },
                 {
                     path: '/dashboard',
-                    element: <Dashboard></Dashboard>
+                    element: <PrivetRout><AdminRout><Dashboard></Dashboard></AdminRout></PrivetRout>
                 },
                 {
                     path: '/booking/:id',
                     loader: ({ params }) => fetch(`http://localhost:5000/timeSlot/${params.id}`),
-                    element: <Booking></Booking>
+                    element: <PrivetRout><Booking></Booking></PrivetRout>
                 },
                 {
                     path: '/profile',

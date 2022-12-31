@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/Authprovider';
+import toast, { Toaster } from 'react-hot-toast';
 
 const UserProfile = () => {
     const { user } = useContext(AuthContext);
@@ -21,9 +22,9 @@ const UserProfile = () => {
             .then(res => res.json())
             .then(data => {
                 if (data?.acknowledged === true) {
-                    alert('Canceled Successfully')
+                    toast.success('Canceled Successfully');
                 } else {
-                    alert('Cancel Faild')
+                    toast.error('Cancel Faild')
                 }
             })
     }
@@ -78,6 +79,7 @@ const UserProfile = () => {
                             <div className='flex flex-col lg:flex-row justify-center items-center gap-2'>
                                 <Link to={`/edit/${data?._id}`} className='btn btn-sm w-1/2 btn-outline rounded-md'><button>Edit Appointment</button></Link>
                                 <Link onClick={() => handleCalcel(data?._id)} className='btn btn-sm w-1/2  btn-outline btn-error rounded-md'><button >Cancel Appointment</button></Link>
+                                <Toaster />
                             </div>
                         </div>
                     </li>

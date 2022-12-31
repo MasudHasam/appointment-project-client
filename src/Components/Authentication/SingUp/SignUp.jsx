@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import google from '../../../Assets/Logo/Google.png'
 import github from '../../../Assets/Logo/Github.png'
 import Lottie from 'react-lottie';
@@ -9,15 +9,26 @@ import { AuthContext } from '../../../AuthProvider/Authprovider';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { googleLogin, githubLogin, emailSignup } = useContext(AuthContext);
+    const { googleLogin, githubLogin, emailSignup, saveUser } = useContext(AuthContext);
     const [loginError, setLoginError] = useState();
+    const navigate = useNavigate()
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/'
 
 
     const signupWithEmail = (data) => {
         emailSignup(data.email, data.password)
             .then(res => {
                 const user = res.user;
-                console.log(user);
+                if (user) {
+                    const userInfo = {
+                        name: user.displayName,
+                        email: user.email,
+                        role: ''
+                    }
+                    saveUser(userInfo)
+                }
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }
@@ -26,7 +37,15 @@ const SignIn = () => {
         googleLogin()
             .then(res => {
                 const user = res.user;
-                console.log(user);
+                if (user) {
+                    const userInfo = {
+                        name: user.displayName,
+                        email: user.email,
+                        role: ''
+                    }
+                    saveUser(userInfo)
+                }
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }
@@ -35,7 +54,15 @@ const SignIn = () => {
         githubLogin()
             .then(res => {
                 const user = res.user;
-                console.log(user);
+                if (user) {
+                    const userInfo = {
+                        name: user.displayName,
+                        email: user.email,
+                        role: ''
+                    }
+                    saveUser(userInfo)
+                }
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }
