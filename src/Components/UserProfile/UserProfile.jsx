@@ -12,13 +12,13 @@ const UserProfile = () => {
 
     // console.log(userData);
     useEffect(() => {
-        fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+        fetch(`https://appointment-project-server-1.vercel.app/bookings?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setUserData(data))
     }, [user?.email, dependency])
 
     const handleCalcel = (id) => {
-        fetch(`http://localhost:5000/delete?id=${id}`, {
+        fetch(`https://appointment-project-server-1.vercel.app/delete?id=${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

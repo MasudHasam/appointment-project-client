@@ -8,7 +8,7 @@ const Dashboard = () => {
     const [allBooked, setAllBooked] = useState()
 
     useEffect(() => {
-        fetch('http://localhost:5000/allBookings')
+        fetch('https://appointment-project-server-1.vercel.app/allBookings')
             .then(res => res.json())
             .then(data => setAllBooked(data))
     }, [allBooked])
@@ -18,7 +18,7 @@ const Dashboard = () => {
         const info = {
             status: "Paid",
         }
-        fetch(`http://localhost:5000/updateStatus?id=${id}`, {
+        fetch(`https://appointment-project-server-1.vercel.app/updateStatus?id=${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -38,7 +38,7 @@ const Dashboard = () => {
         const info = {
             status: "Confirmed",
         }
-        fetch(`http://localhost:5000/updateStatus?id=${id}`, {
+        fetch(`https://appointment-project-server-1.vercel.app/updateStatus?id=${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -58,7 +58,7 @@ const Dashboard = () => {
         const info = {
             status: "Canceled",
         }
-        fetch(`http://localhost:5000/updateStatus?id=${id}`, {
+        fetch(`https://appointment-project-server-1.vercel.app/updateStatus?id=${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'

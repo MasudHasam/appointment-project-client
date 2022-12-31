@@ -9,14 +9,14 @@ const EditAppointment = () => {
     const [timeSlot, setTimeSlot] = useState();
 
     useEffect(() => {
-        fetch('http://localhost:5000/timeSlots')
+        fetch('https://appointment-project-server-1.vercel.app/timeSlots')
             .then(res => res.json())
             .then(data => setTimeSlot(data))
     }, [])
 
 
     const handleBookingUpdate = (newValue) => {
-        fetch(`http://localhost:5000/update?id=${data?._id}`, {
+        fetch(`https://appointment-project-server-1.vercel.app/update?id=${data?._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

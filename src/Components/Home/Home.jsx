@@ -22,7 +22,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:5000/timeSlots')
+        fetch('https://appointment-project-server-1.vercel.app/timeSlots')
             .then(res => res.json())
             .then(data => {
                 setTimeSlot(data);

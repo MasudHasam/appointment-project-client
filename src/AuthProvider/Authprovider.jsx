@@ -49,7 +49,7 @@ const Authprovider = ({ children }) => {
     }, []);
 
     const saveUser = (user) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://appointment-project-server-1.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -60,7 +60,7 @@ const Authprovider = ({ children }) => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users?email=${user?.email}`)
+            fetch(`https://appointment-project-server-1.vercel.app/users?email=${user?.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setAdmin(data)

@@ -18,7 +18,7 @@ const Booking = () => {
 
     const handleBooking = (data) => {
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://appointment-project-server-1.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

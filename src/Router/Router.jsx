@@ -36,7 +36,7 @@ const Router = () => {
                 },
                 {
                     path: '/booking/:id',
-                    loader: ({ params }) => fetch(`http://localhost:5000/timeSlot/${params.id}`),
+                    loader: ({ params }) => fetch(`https://appointment-project-server-1.vercel.app/timeSlot/${params.id}`),
                     element: <PrivetRout><Booking></Booking></PrivetRout>
                 },
                 {
@@ -45,7 +45,7 @@ const Router = () => {
                 },
                 {
                     path: '/edit/:id',
-                    loader: ({ params }) => fetch(`http://localhost:5000/booking/${params.id}`),
+                    loader: ({ params }) => fetch(`https://appointment-project-server-1.vercel.app/booking/${params.id}`),
                     element: <EditAppointment></EditAppointment>
                 }
             ]
