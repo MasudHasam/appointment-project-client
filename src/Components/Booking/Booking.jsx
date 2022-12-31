@@ -4,9 +4,11 @@ import { AuthContext } from '../../AuthProvider/Authprovider';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import TitleHooks from '../TitleHook/TitleHook';
 
 
 const Booking = () => {
+    TitleHooks('Appoinment Booking')
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const data = useLoaderData();
     const { user, selected } = useContext(AuthContext);

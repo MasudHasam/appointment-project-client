@@ -5,9 +5,10 @@ import Lottie from 'react-lottie';
 import meetingAnimation from '../../meetingTime.json';
 import TimeSlot from '../TimeSlot/TimeSlot';
 import { AuthContext } from '../../AuthProvider/Authprovider';
+import TitleHooks from '../TitleHook/TitleHook';
 
 const Home = () => {
-
+    TitleHooks('Home')
     const [timeSlot, setTimeSlot] = useState();
     const { selected, setSelected } = useContext(AuthContext);
 
@@ -52,7 +53,7 @@ const Home = () => {
             }
             <div className='grid grid-cols-2 lg:grid-cols-5 gap-7 my-4'>
                 {
-                    timeSlot && timeSlot.map(time => <TimeSlot time={time} key={time._id}></TimeSlot>)
+                    !timeSlot ? <progress className="progress w-56 text-center"></progress> : timeSlot.map(time => <TimeSlot time={time} key={time._id}></TimeSlot>)
                 }
             </div>
         </div>

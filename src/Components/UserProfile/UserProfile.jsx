@@ -2,18 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/Authprovider';
 import toast, { Toaster } from 'react-hot-toast';
+import TitleHooks from '../TitleHook/TitleHook';
 
 const UserProfile = () => {
+    TitleHooks('Profile')
     const { user } = useContext(AuthContext);
     const [userData, setUserData] = useState();
+    const [dependency, setDependency] = useState(true)
 
     // console.log(userData);
     useEffect(() => {
         fetch(`http://localhost:5000/bookings?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setUserData(data))
-    }, [user, userData])
-
+    }, [user?.email, dependency])
 
     const handleCalcel = (id) => {
         fetch(`http://localhost:5000/delete?id=${id}`, {
@@ -22,6 +24,8 @@ const UserProfile = () => {
             .then(res => res.json())
             .then(data => {
                 if (data?.acknowledged === true) {
+
+                    setDependency(!dependency)
                     toast.success('Canceled Successfully');
                 } else {
                     toast.error('Cancel Faild')
@@ -29,12 +33,12 @@ const UserProfile = () => {
             })
     }
 
-
     return (
         <div className='my-8'>
-            <h1 className='my-2'>All of your booked appointment</h1>
-
-
+            {
+                userData?.[0]?.name || userData?.[0]?.email ? <h1 className='my-2'>All of your booked appointment</h1> :
+                    <h1 className='my-[180px] text-xl font-bold '>No Appointment Found <br /><Link to='/' className='btn btn-outline btn-sm mt-2'>Book Appointment</Link></h1>
+            }
             <ol>
                 {userData?.map((data, idx) =>
                     <li key={data?._id}>

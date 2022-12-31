@@ -6,8 +6,10 @@ import github from '../../../Assets/Logo/Github.png'
 import Lottie from 'react-lottie';
 import signinAnimation from '../../../login.json';
 import { AuthContext } from '../../../AuthProvider/Authprovider';
+import TitleHooks from '../../TitleHook/TitleHook';
 
 const SignIn = () => {
+    TitleHooks('SIGN IN')
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const [loginError, setLoginError] = useState();
     const { googleLogin, githubLogin, emailSignin, saveUser } = useContext(AuthContext)

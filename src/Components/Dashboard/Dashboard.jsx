@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import TitleHooks from '../TitleHook/TitleHook';
 
 
 const Dashboard = () => {
+    TitleHooks('Dashboard')
     const [allBooked, setAllBooked] = useState()
 
     useEffect(() => {
